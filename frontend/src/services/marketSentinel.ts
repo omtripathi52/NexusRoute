@@ -2,8 +2,9 @@
  * Market Sentinel API Service
  * Provides functions to interact with the Market Sentinel geopolitical risk detection API
  */
+import { buildApiUrl } from '../config/runtime';
 
-const MARKET_SENTINEL_BASE_URL = 'http://localhost:8000/api/v2/market-sentinel';
+const MARKET_SENTINEL_BASE_URL = buildApiUrl('/api/v2/market-sentinel');
 
 // Response types
 export interface AffectedLane {

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useUser, useAuth, SignOutButton } from '@clerk/clerk-react';
 import { DashboardCharts } from '../components/Admin/DashboardCharts.jsx';
+import { buildApiUrl } from '../config/runtime';
 
 export function AdminPage() {
   const { user, isLoaded } = useUser();
   const { getToken } = useAuth();
   const [backendData, setBackendData] = useState(null);
   const [analyticsData, setAnalyticsData] = useState(null);
+  const [analyticsError, setAnalyticsError] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,17 +20,19 @@ export function AdminPage() {
         };
 
         // 1. Check Auth & Whitelist
-        const res = await fetch('http://localhost:8000/api/protected', { headers });
+          const res = await fetch(buildApiUrl('/api/protected'), { headers });
         if (res.ok) {
            const data = await res.json();
            setBackendData(data);
            
            // 2. If Admin, fetch Analytics
            if (data.is_admin) {
-              const analyticsRes = await fetch('http://localhost:8000/api/analytics/dashboard', { headers });
+              const analyticsRes = await fetch(buildApiUrl('/api/analytics/dashboard'), { headers });
               if (analyticsRes.ok) {
                   const analytics = await analyticsRes.json();
                   setAnalyticsData(analytics);
+              } else {
+                setAnalyticsError(`Analytics API failed (${analyticsRes.status})`);
               }
            }
         } else {
@@ -36,6 +40,7 @@ export function AdminPage() {
         }
       } catch (err) {
         setBackendData({ error: err.message });
+          setAnalyticsError(err.message);
       }
     };
     if (isLoaded && user) {
@@ -105,6 +110,13 @@ export function AdminPage() {
         {/* Analytics Section */}
         {analyticsData ? (
             <DashboardCharts data={analyticsData} />
+        ) : analyticsError ? (
+          <div className="flex items-center justify-center h-64">
+            <div className="text-amber-400 text-center">
+              <div className="text-lg font-semibold">Analytics unavailable</div>
+              <div className="text-sm text-slate-400 mt-2">{analyticsError}</div>
+            </div>
+          </div>
         ) : (
             <div className="flex items-center justify-center h-64">
                 <div className="text-cyan-500 animate-pulse text-lg">Loading Analytics Data...</div>

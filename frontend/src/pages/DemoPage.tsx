@@ -53,6 +53,7 @@ import {
 import {
   getDemoAnalysis,
 } from '../services/visualRiskApi';
+import { buildApiUrl } from '../config/runtime';
 
 // CoT Type Definitions
 interface RAGSource {
@@ -473,7 +474,7 @@ export const DemoPage: React.FC = () => {
 
   const startBackendDemo = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/v2/demo/start', {
+      const response = await fetch(buildApiUrl('/api/v2/demo/start'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ scenario: 'crisis_455pm' }),

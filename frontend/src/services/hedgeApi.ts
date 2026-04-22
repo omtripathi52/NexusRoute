@@ -2,8 +2,9 @@
  * Hedge API Service
  * Provides functions to interact with the Financial Hedging backend API
  */
+import { buildApiUrl } from '../config/runtime';
 
-const HEDGE_BASE_URL = 'http://localhost:8000/api/hedge';
+const HEDGE_BASE_URL = buildApiUrl('/api/hedge');
 
 // ========== Request Models ==========
 

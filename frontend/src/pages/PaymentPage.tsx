@@ -567,7 +567,7 @@ export const PaymentPage: React.FC = () => {
             <span>NexusRoute</span>
           </div>
           <p className="footer-tagline">Trading with Confidence</p>
-          <p className="footer-copyright">© 2026 NexusRoute. Google Gemini 3 Hackathon Project.</p>
+          <p className="footer-copyright">© 2026 NexusRoute. Google Solution Challenge India 2026.</p>
         </div>
       </footer>
 

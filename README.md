@@ -119,6 +119,7 @@ pip install -r requirements.txt
 
 # Configure environment variables
 # Create a .env file in the backend directory with core configurations:
+# CLERK_SECRET_KEY=...
 # CLERK_ISSUER_URL=...
 # ADMIN_WHITELIST=...
 
@@ -137,6 +138,8 @@ npm install
 # Create a .env file in the frontend directory:
 # VITE_CLERK_PUBLISHABLE_KEY=...
 # VITE_ADMIN_WHITELIST=...
+# VITE_API_BASE_URL=https://<your-backend-domain>
+# VITE_WS_URL=wss://<your-backend-domain>/ws
 
 npm run dev
 ```
@@ -157,7 +160,7 @@ _Frontend runs at `http://localhost:5173`_
 
 ## 💰 Financial Hedging System (NEW)
 
-Globot now includes a comprehensive financial risk hedging system for managing:
+NexusRoute now includes a comprehensive financial risk hedging system for managing:
 
 ### Risk Categories
 - **Fuel Price Risk**: Hedge marine fuel price fluctuations using futures, options, and swaps.

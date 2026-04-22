@@ -1,4 +1,5 @@
 import { chatAPI } from './api';
+import { buildWsUrl } from '../config/runtime';
 
 /**
  * 消息服务抽象层 - 支持HTTP轮询和WebSocket切换
@@ -38,7 +39,7 @@ export class WebSocketStrategy {
   
   subscribe(customerId, callback) {
     // TODO: V1.0实现
-    const wsUrl = `${import.meta.env.VITE_WS_URL || 'ws://localhost:8000/ws'}/${customerId}`;
+    const wsUrl = `${buildWsUrl('/ws')}/${customerId}`;
     const ws = new WebSocket(wsUrl);
     
     ws.onmessage = (event) => {

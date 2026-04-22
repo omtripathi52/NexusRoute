@@ -6,6 +6,7 @@ import {
   PieChart, Pie, Cell, LineChart, Line, AreaChart, Area
 } from 'recharts';
 import { InfoCircleOutlined } from '@ant-design/icons';
+import { buildApiUrl } from '../../config/runtime';
 
 const { Title, Text } = Typography;
 
@@ -70,14 +71,14 @@ export const AdminDashboard: React.FC = () => {
         const token = await getToken();
         
         // Fetch Customers
-        const custRes = await fetch('http://localhost:8000/api/customers', {
+        const custRes = await fetch(buildApiUrl('/api/customers'), {
           headers: { Authorization: `Bearer ${token}` },
         });
         const custData = await custRes.json();
         setCustomers(custData.customers || []);
 
         // Fetch Stats
-        const statsRes = await fetch('http://localhost:8000/api/admin/stats', {
+        const statsRes = await fetch(buildApiUrl('/api/admin/stats'), {
           headers: { Authorization: `Bearer ${token}` },
         });
         const statsData = await statsRes.json();

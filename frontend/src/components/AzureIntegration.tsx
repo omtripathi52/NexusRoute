@@ -23,7 +23,7 @@ export function AzureIntegration() {
             <Shield className="w-4 h-4 text-[#0078d4]" strokeWidth={1.5} />
           </div>
           <span className="text-sm font-medium text-white/80 tracking-wide">
-            Powered by Microsoft Azure
+            Powered by Google AI Platform
           </span>
         </div>
         
@@ -64,10 +64,10 @@ export function AzureIntegration() {
             </div>
             <div className="space-y-1.5">
               {[
-                'Azure OpenAI Service',
-                'Azure Cognitive Search',
-                'Azure Monitor',
-                'Azure Key Vault',
+                'Google Gemini API',
+                'Google AI Search',
+                'Google Cloud Monitoring',
+                'Google Secret Manager',
               ].map((service, i) => (
                 <div key={i} className="flex items-center gap-2">
                   <div className="w-1 h-1 rounded-full bg-[#0078d4]" />

@@ -2,8 +2,9 @@
  * Visual Risk API Service
  * Provides functions to interact with the Visual Risk Analysis backend API (Gemini Vision)
  */
+import { buildApiUrl } from '../config/runtime';
 
-const VISUAL_RISK_BASE_URL = 'http://localhost:8000/api/v2/visual-risk';
+const VISUAL_RISK_BASE_URL = buildApiUrl('/api/v2/visual-risk');
 
 // ========== Response Models ==========
 

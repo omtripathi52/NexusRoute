@@ -79,7 +79,7 @@ export const AzureBadges: React.FC = () => {
           ];
         });
       } catch (err) {
-        console.error("Failed to fetch Azure stats:", err);
+        console.error("Failed to fetch AI service stats:", err);
       }
     };
 
@@ -94,14 +94,14 @@ export const AzureBadges: React.FC = () => {
       <div className="flex items-center gap-2 mb-4 box-border">
         <div className="w-1.5 h-1.5 rounded-full bg-[#0078d4]" />
         <h2 className="text-xs font-semibold text-white/60 tracking-wider uppercase leading-tight text-left m-0 p-0">
-          Azure OpenAI Agents
+          Google AI Agents
         </h2>
       </div>
 
       <div className="space-y-3 box-border">
         <AIAgentCard
           icon={Brain}
-          name="Azure OpenAI"
+          name="Google Gemini"
           role="Primary reasoning engine"
           status={getServiceById("openai")?.status || "idle"}
           lastAction={getServiceById("openai")?.lastAction || ""}
@@ -109,7 +109,7 @@ export const AzureBadges: React.FC = () => {
 
         <AIAgentCard
           icon={Search}
-          name="Azure AI Search"
+          name="Google AI Search"
           role="Real-time intelligence"
           status={getServiceById("search")?.status || "thinking"}
           lastAction={getServiceById("search")?.lastAction || ""}
@@ -117,7 +117,7 @@ export const AzureBadges: React.FC = () => {
 
         <AIAgentCard
           icon={Cog}
-          name="Azure Cognitive"
+          name="Google AI Studio"
           role="Pattern recognition"
           status={getServiceById("cognitive")?.status || "idle"}
           lastAction={getServiceById("cognitive")?.lastAction || ""}
