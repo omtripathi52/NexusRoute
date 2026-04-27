@@ -10,7 +10,11 @@ from config import get_settings
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
-from sentence_transformers import CrossEncoder
+
+try:
+    from sentence_transformers import CrossEncoder
+except ImportError:
+    CrossEncoder = None
 
 logger = logging.getLogger(__name__)
 settings = get_settings()
@@ -100,8 +104,16 @@ class MaritimeKnowledgeBase:
             )
             logger.info(f"Initialized collection: {collection_name}")
 
-        # Initialize cross-encoder reranker
-        self.reranker = CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2')
+        # Initialize cross-encoder reranker only when explicitly enabled.
+        # This is disabled by default to keep memory usage low on free deployments.
+        if settings.maritime_use_reranker and CrossEncoder is not None:
+            try:
+                self.reranker = CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2')
+            except Exception as e:
+                logger.warning(f"Failed to initialize reranker, continuing without it: {e}")
+                self.reranker = None
+        else:
+            self.reranker = None
 
 
     def search_by_port(

@@ -53,6 +53,7 @@ class Settings(BaseSettings):
 
     # CrewAI Feature Flags
     document_analysis_use_crewai: bool = True
+    maritime_use_reranker: bool = False
     
     # Clerk配置
     clerk_issuer_url: Optional[str] = None
