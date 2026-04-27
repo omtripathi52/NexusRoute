@@ -67,7 +67,7 @@ export function AdminPage() {
             <p>You are not an administrator.</p>
             <p className="text-gray-400 mt-2">Current Email: {user?.primaryEmailAddress?.emailAddress}</p>
             <div style={{ marginTop: '20px' }}>
-             <SignOutButton>
+             <SignOutButton redirectUrl="/pay">
                <button style={{
                  padding: '10px 20px',
                  backgroundColor: '#334155',
@@ -99,7 +99,7 @@ export function AdminPage() {
                     <p className="font-semibold">{user?.fullName || user?.firstName}</p>
                     <p className="text-xs text-slate-500">Administrator</p>
                 </div>
-                <SignOutButton>
+                <SignOutButton redirectUrl="/pay">
                     <button className="px-4 py-2 bg-red-500 hover:bg-red-600 rounded text-sm font-medium transition-colors">
                         Sign Out
                     </button>

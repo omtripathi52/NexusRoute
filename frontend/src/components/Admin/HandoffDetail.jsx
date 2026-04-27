@@ -112,7 +112,7 @@ const HandoffDetail = () => {
       if ('Notification' in window && Notification.permission === 'granted') {
         new Notification('转人工已接手', {
           body: `${tempAgentName} 已接手对话`,
-          icon: '/logo.png'
+          icon: '/NexusRoute_Logo.png'
         });
       }
       

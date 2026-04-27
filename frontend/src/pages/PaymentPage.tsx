@@ -398,7 +398,7 @@ export const PaymentPage: React.FC = () => {
         >
           <div className="hero-globe-wrapper">
             <div className="hero-globe-glow" />
-            <img src="/NexusRoute_logo.png" alt="NexusRoute Logo" className="hero-globe-icon" style={{ width: '1550px', height: '1550px', objectFit: 'contain' }} />
+            <img src="/NexusRoute_Logo.png" alt="NexusRoute Logo" className="hero-globe-icon" style={{ width: '1550px', height: '1550px', objectFit: 'contain' }} />
           </div>
         </motion.div>
       </section>
