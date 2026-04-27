@@ -1,7 +1,11 @@
 import React from 'react';
 import { SignIn } from '@clerk/clerk-react';
+import { useLocation } from 'react-router-dom';
 
 export function SignInPage() {
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const requestedRedirect = params.get('redirect') || '/port';
   console.log("[SignInPage] Rendering SignIn component");
   return (
     <div style={{ 
@@ -15,8 +19,10 @@ export function SignInPage() {
       <SignIn 
         routing="path" 
         path="/sign-in" 
-        afterSignInUrl="/port"
-        afterSignUpUrl="/port"
+        forceRedirectUrl={requestedRedirect}
+        fallbackRedirectUrl="/port"
+        signUpForceRedirectUrl={requestedRedirect}
+        signUpFallbackRedirectUrl="/port"
       />
     </div>
   );

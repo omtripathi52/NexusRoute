@@ -68,7 +68,7 @@ function App() {
                       <PortSelectionPage />
                     </SignedIn>
                     <SignedOut>
-                      <RedirectToSignIn />
+                      <Navigate to="/sign-in?redirect=/port" replace />
                     </SignedOut>
                   </>
                 }
@@ -81,7 +81,7 @@ function App() {
                       <DemoPage />
                     </SignedIn>
                     <SignedOut>
-                      <RedirectToSignIn />
+                      <Navigate to="/sign-in?redirect=/demo" replace />
                     </SignedOut>
                   </>
                 }
@@ -94,7 +94,7 @@ function App() {
                       <AdminPage />
                     </SignedIn>
                     <SignedOut>
-                      <RedirectToSignIn />
+                      <Navigate to="/sign-in?redirect=/admin" replace />
                     </SignedOut>
                   </>
                 }
