@@ -70,8 +70,10 @@ export const CommonHeader: React.FC = () => {
                     <div style={{
                         width: '32px',
                         height: '32px',
-                        background: 'linear-gradient(135deg, #0078d4 0%, #4a90e2 100%)',
-                        borderRadius: '4px',
+                        background: 'radial-gradient(circle at 30% 30%, #4a90e2 0%, #0078d4 70%)',
+                        borderRadius: '999px',
+                        border: '1px solid rgba(106, 168, 255, 0.45)',
+                        boxShadow: '0 0 18px rgba(74, 144, 226, 0.25)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center'
