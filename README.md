@@ -2,7 +2,7 @@
 
 Google Solution Challenge India 2026 submission for Smart Supply Chains: Resilient Logistics.
 
-![NexusRoute Homepage](frontend/public/NexusRoute%20Homepage.png)
+![NexusRoute Homepage](frontend/public/NexusRoute_Homepage.png)
 
 NexusRoute live prototype homepage.
 
