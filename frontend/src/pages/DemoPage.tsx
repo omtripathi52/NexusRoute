@@ -449,7 +449,7 @@ export const DemoPage: React.FC = () => {
 
       // --- Visual Risk Events (NEW) ---
       case 'VISUAL_RISK_START':
-        setVisualRiskAnalyzing(true);
+        setVisualRiskAnalyzing(true); setTimeout(() => setVisualRiskAnalyzing(false), 8000);
         setVisualRiskSource(lastEvent.source || 'Satellite Feed');
         setVisualRiskLocation(lastEvent.location || '');
         setVisualRiskAnalysis(null);
@@ -688,7 +688,7 @@ export const DemoPage: React.FC = () => {
   const runVisualRiskAnalysis = useCallback(async (scenario: string = 'suez_blockage') => {
     if (visualRiskAnalyzing) return;
 
-    setVisualRiskAnalyzing(true);
+    setVisualRiskAnalyzing(true); setTimeout(() => setVisualRiskAnalyzing(false), 8000);
     setVisualRiskSource('Satellite Feed');
     setVisualRiskLocation(scenario === 'port_congestion' ? 'Rotterdam Port' : 'Suez Canal');
     setVisualRiskAnalysis(null);
