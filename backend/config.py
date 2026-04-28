@@ -57,7 +57,7 @@ class Settings(BaseSettings):
     
     # Clerk配置
     clerk_issuer_url: Optional[str] = None
-    admin_whitelist: str = "thaumatext@gmail.com"
+    admin_whitelist: str = "flashforward637@gmail.com"
 
     # 系统配置
     log_level: str = "INFO"
