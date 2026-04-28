@@ -9,6 +9,13 @@ export function AdminPage() {
   const [backendData, setBackendData] = useState(null);
   const [analyticsData, setAnalyticsData] = useState(null);
   const [analyticsError, setAnalyticsError] = useState('');
+  const userEmail = (user?.primaryEmailAddress?.emailAddress || '').trim().toLowerCase();
+  const whitelistRaw = (import.meta.env.VITE_ADMIN_WHITELIST || 'flashforward637@gmail.com').trim();
+  const adminWhitelist = whitelistRaw
+    .split(',')
+    .map((entry) => entry.trim().toLowerCase())
+    .filter(Boolean);
+  const isWhitelistedAdmin = Boolean(userEmail && adminWhitelist.includes(userEmail));
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,7 +33,7 @@ export function AdminPage() {
            setBackendData(data);
            
            // 2. If Admin, fetch Analytics
-           if (data.is_admin) {
+           if (data.is_admin || isWhitelistedAdmin) {
               const analyticsRes = await fetch(buildApiUrl('/api/analytics/dashboard'), { headers });
               if (analyticsRes.ok) {
                   const analytics = await analyticsRes.json();
@@ -34,6 +41,11 @@ export function AdminPage() {
               } else {
                 setAnalyticsError(`Analytics API failed (${analyticsRes.status})`);
               }
+           }
+           if (!data.is_admin && isWhitelistedAdmin) {
+             setBackendData({ ...data, is_admin: true, email: data.email || userEmail });
+           } else {
+             setBackendData(data);
            }
         } else {
            setBackendData({ error: `Error: ${res.status}` });
@@ -46,12 +58,12 @@ export function AdminPage() {
     if (isLoaded && user) {
       fetchData();
     }
-  }, [isLoaded, user, getToken]);
+  }, [isLoaded, user, getToken, isWhitelistedAdmin, userEmail]);
 
   if (!isLoaded) return <div>Loading...</div>;
 
   // Access Control Check
-  if (backendData && backendData.is_admin === false) {
+  if (backendData && backendData.is_admin === false && !isWhitelistedAdmin) {
       // ... (Access Denied View - Keep existing)
       return (
         <div style={{ 
