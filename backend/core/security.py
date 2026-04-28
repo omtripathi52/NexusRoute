@@ -7,9 +7,6 @@ from functools import lru_cache
 
 logger = logging.getLogger(__name__)
 
-# Clerk JWKS URL
-CLERK_ISSUER_URL = os.getenv("CLERK_ISSUER_URL")
-
 class AuthError(Exception):
     def __init__(self, error: str, status_code: int = 401):
         self.error = error
@@ -17,20 +14,24 @@ class AuthError(Exception):
 
 @lru_cache()
 def get_jwks_client():
-    if not CLERK_ISSUER_URL:
-        logger.warning("CLERK_ISSUER_URL not set. Authentication will fail.")
+    from config import get_settings
+    settings = get_settings()
+    clerk_issuer_url = settings.clerk_issuer_url
+    if not clerk_issuer_url:
+        logger.warning("CLERK_ISSUER_URL not set. Fallback authentication will be used.")
         return None
-    jwks_url = f"{CLERK_ISSUER_URL}/.well-known/jwks.json"
+    jwks_url = f"{clerk_issuer_url}/.well-known/jwks.json"
     return PyJWKClient(jwks_url)
 
 def verify_token(token: str) -> Dict[str, Any]:
     """
     Verify the JWT token using Clerk's JWKS.
     Returns the decoded token payload if valid.
+    If Clerk is not configured, raises an AuthError that the caller can handle.
     """
     jwks_client = get_jwks_client()
     if not jwks_client:
-         raise AuthError("Authentication configuration missing", 500)
+         raise AuthError("Authentication service unavailable", 503)
 
     try:
         signing_key = jwks_client.get_signing_key_from_jwt(token)
