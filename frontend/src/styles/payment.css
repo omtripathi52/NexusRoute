@@ -171,8 +171,8 @@
 
 .hero-globe-wrapper {
   position: relative;
-  width: 400px;
-  height: 400px;
+  width: 420px;
+  height: 420px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -180,19 +180,23 @@
 
 .hero-globe-glow {
   position: absolute;
-  width: 300px;
-  height: 300px;
+  width: 80%;
+  height: 80%;
+  max-width: 380px;
+  max-height: 380px;
   background: radial-gradient(circle, rgba(0, 120, 212, 0.3), transparent 70%);
   border-radius: 50%;
   animation: pulse-glow 3s ease-in-out infinite;
 }
 
 .hero-globe-icon {
-  width: 200px;
-  height: 200px;
+  width: 70%;
+  height: auto;
+  max-width: 360px;
   color: rgba(74, 144, 226, 0.6);
   position: relative;
   z-index: 1;
+  object-fit: contain;
 }
 
 .hero-orbiting-dots {
@@ -999,13 +1003,14 @@
   }
 
   .hero-globe-wrapper {
-    width: 300px;
-    height: 300px;
+    width: 320px;
+    height: 320px;
   }
 
   .hero-globe-icon {
-    width: 150px;
-    height: 150px;
+    width: 80%;
+    max-width: 260px;
+    height: auto;
   }
 
   .pricing-grid {
@@ -1073,5 +1078,18 @@
 
   .payment-footer {
     padding: 40px 24px;
+  }
+
+  /* Ensure hero visual fits on small screens and remains visible */
+  .hero-globe-wrapper {
+    width: 240px;
+    height: 240px;
+    margin: 24px auto 0;
+  }
+
+  .hero-globe-icon {
+    max-width: 220px;
+    width: 100%;
+    height: auto;
   }
 }

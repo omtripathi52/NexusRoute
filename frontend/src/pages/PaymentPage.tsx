@@ -351,15 +351,14 @@ export const PaymentPage: React.FC = () => {
           </div>
 
           <h1 className="hero-title">
-            <span className="hero-title-gradient">NexusRoute Shield</span>
+            <span className="hero-title-gradient">Real-time safety layer</span>
             <br />
-            Securing Global Lifelines
+            as you scroll
           </h1>
 
           <p className="hero-subtitle">
-            Enterprise-grade AI that protects Fortune 500 supply chains from geopolitical crises,
-            using <span className="hero-highlight">satellite imagery analysis</span> and <span className="hero-highlight">real-time reasoning</span> — 
-            making decisions in 3 minutes, not 3 days.
+            Surface actionable risk signals and mitigation guidance while you review routes and documents.
+            Built to keep operators in control with clear, explainable recommendations.
           </p>
 
           <div className="hero-cta-group">
@@ -398,7 +397,7 @@ export const PaymentPage: React.FC = () => {
         >
           <div className="hero-globe-wrapper">
             <div className="hero-globe-glow" />
-            <img src="/NexusRoute_Logo.png" alt="NexusRoute Logo" className="hero-globe-icon" style={{ width: '1550px', height: '1550px', objectFit: 'contain' }} />
+            <img src="/NexusRoute_Logo.png" alt="NexusRoute Logo" className="hero-globe-icon" />
           </div>
         </motion.div>
       </section>
@@ -564,10 +563,10 @@ export const PaymentPage: React.FC = () => {
         <div className="footer-content">
           <div className="footer-brand">
             <Shield className="w-6 h-6 text-[#0078d4]" />
-            <span>NexusRoute</span>
+            <span>ScreenSentinel</span>
           </div>
-          <p className="footer-tagline">Trading with Confidence</p>
-          <p className="footer-copyright">© 2026 NexusRoute. Google Solution Challenge India 2026.</p>
+          <p className="footer-tagline">Real-time safety layer</p>
+          <p className="footer-copyright">© 2026 ScreenSentinel. Built by Om Tripathi.</p>
         </div>
       </footer>
 
