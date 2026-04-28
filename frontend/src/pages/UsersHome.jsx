@@ -575,7 +575,7 @@ export function UsersHome() {
                {/* Form Grid */}
                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {/* Category: Vessel Particulars */}
-                  <FormSection title="Vessel Particulars (船舶基础信息)" icon={<ClipboardCheck className="w-5 h-5" />}>
+                  <FormSection title="Vessel Particulars" icon={<ClipboardCheck className="w-5 h-5" />}>
                      <div className="grid grid-cols-2 gap-4">
                         <InputField label="Vessel Name (船名)" value={shipData.vesselName} onChange={(v) => handleShipDataChange('vesselName', v)} placeholder="COSCO SHIPPING..." />
                         <InputField label="Call Sign (呼号)" value={shipData.callSign} onChange={(v) => handleShipDataChange('callSign', v)} placeholder="VRAB2" />

@@ -108,7 +108,18 @@ export function AdminPage() {
         </header>
       
         {/* Analytics Section */}
-        {analyticsData ? (
+        {backendData === null ? (
+          <div className="flex items-center justify-center h-64">
+            <div className="text-cyan-500 animate-pulse text-lg">Checking admin access...</div>
+          </div>
+        ) : backendData?.error ? (
+          <div className="flex items-center justify-center h-64">
+            <div className="text-amber-400 text-center">
+              <div className="text-lg font-semibold">Backend unavailable</div>
+              <div className="text-sm text-slate-400 mt-2">{backendData.error}</div>
+            </div>
+          </div>
+        ) : analyticsData ? (
             <DashboardCharts data={analyticsData} />
         ) : analyticsError ? (
           <div className="flex items-center justify-center h-64">
