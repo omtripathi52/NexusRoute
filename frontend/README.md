@@ -1,43 +1,34 @@
 # NexusRoute Frontend
 
-Frontend application for the NexusRoute logistics resilience prototype.
+Live prototype deployed at **https://nexus-route.vercel.app**
+
+Frontend for NexusRoute, an AI-powered logistics resilience co-pilot built for the Google Solution Challenge India 2026.
 
 ## Tech Stack
-- React 18
-- Vite
-- TypeScript/JavaScript
-- Ant Design
-- React Router
+- React 18, Vite, TypeScript
+- Ant Design, React Router
 - Clerk authentication
+- Deck.gl for geospatial visualization
 
-## Run Locally
+## Core Pages
+- `/pay` — Landing and demo entry
+- `/demo` — Crisis simulation interface
+- `/admin` — Analytics dashboard (admin-only)
+- `/sign-in` — Authentication
+
+## For Maintainers: Local Development
 ```bash
 npm install
 npm run dev
+# → http://localhost:5173
 ```
 
-Default local URL: `http://localhost:5173`
-
-## Environment Variables
-Create `.env` in `frontend/` with:
-
+Set `.env` with:
 ```env
 VITE_CLERK_PUBLISHABLE_KEY=pk_...
 VITE_API_BASE_URL=http://localhost:8000
 VITE_WS_URL=ws://localhost:8000/ws
-VITE_ADMIN_WHITELIST=admin@example.com
+VITE_ADMIN_WHITELIST=your-email@example.com
 ```
 
-For production, set these values in Vercel project settings.
-
-## Core Routes
-- `/pay` - Landing and demo entry page
-- `/port` - Port selection and scenario setup
-- `/demo` - Crisis simulation interface
-- `/admin` - Admin analytics view
-- `/sign-in` - Authentication page
-
-## Production Notes
-- SPA deep-link routing is configured via `vercel.json` rewrite.
-- Auth redirects are configured to return users to app routes.
-- API calls use runtime environment variables; avoid hardcoded localhost URLs in production.
+Production vars are set in Vercel.
