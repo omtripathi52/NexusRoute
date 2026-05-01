@@ -26,17 +26,17 @@ export const CommonHeader: React.FC = () => {
     const adminMenuItems: MenuProps['items'] = [
         {
             key: 'dashboard',
-            label: '管理控制台',
+            label: 'Admin Console',
             onClick: () => navigate('/admin'),
         },
         {
             key: 'customers',
-            label: '客户档案管理',
+            label: 'Customer Records',
             onClick: () => navigate('/admin'), // In MVP, pointing to same place
         },
         {
             key: 'ai-logs',
-            label: 'AI 决策日志',
+            label: 'AI Decision Logs',
             disabled: true,
         },
         {
@@ -44,7 +44,7 @@ export const CommonHeader: React.FC = () => {
         },
         {
             key: 'settings',
-            label: '系统设置',
+            label: 'System Settings',
             disabled: true,
         },
     ];

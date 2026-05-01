@@ -577,17 +577,17 @@ export function UsersHome() {
                   {/* Category: Vessel Particulars */}
                   <FormSection title="Vessel Particulars" icon={<ClipboardCheck className="w-5 h-5" />}>
                      <div className="grid grid-cols-2 gap-4">
-                        <InputField label="Vessel Name (船名)" value={shipData.vesselName} onChange={(v) => handleShipDataChange('vesselName', v)} placeholder="COSCO SHIPPING..." />
-                        <InputField label="Call Sign (呼号)" value={shipData.callSign} onChange={(v) => handleShipDataChange('callSign', v)} placeholder="VRAB2" />
+                        <InputField label="Vessel Name" value={shipData.vesselName} onChange={(v) => handleShipDataChange('vesselName', v)} placeholder="COSCO SHIPPING..." />
+                        <InputField label="Call Sign" value={shipData.callSign} onChange={(v) => handleShipDataChange('callSign', v)} placeholder="VRAB2" />
                         <InputField label="IMO Number" value={shipData.imoNumber} onChange={(v) => handleShipDataChange('imoNumber', v)} placeholder="9876543" />
                         <InputField label="MMSI Code" value={shipData.mmsiCode} onChange={(v) => handleShipDataChange('mmsiCode', v)} placeholder="477..." />
-                        <InputField label="Flag (船旗)" value={shipData.flag} onChange={(v) => handleShipDataChange('flag', v)} placeholder="Hong Kong" />
+                        <InputField label="Flag" value={shipData.flag} onChange={(v) => handleShipDataChange('flag', v)} placeholder="Hong Kong" />
                         <InputField label="Vessel Type" value={shipData.vesselType} onChange={(v) => handleShipDataChange('vesselType', v)} placeholder="ULCV" />
                      </div>
                   </FormSection>
 
                   {/* Category: Voyage Information */}
-                  <FormSection title="Voyage Information (航次信息)" icon={<MapPin className="w-5 h-5" />}>
+                  <FormSection title="Voyage Information" icon={<MapPin className="w-5 h-5" />}>
                      <div className="grid grid-cols-2 gap-4">
                         <InputField label="Original Voyage" value={shipData.originalVoyage} onChange={(v) => handleShipDataChange('originalVoyage', v)} placeholder="045W" />
                         <InputField label="New Voyage" value={shipData.newVoyage} onChange={(v) => handleShipDataChange('newVoyage', v)} placeholder="045W-C" />
@@ -599,7 +599,7 @@ export function UsersHome() {
                   </FormSection>
 
                   {/* Category: Cargo Details */}
-                  <FormSection title="Cargo Details (货物信息)" icon={<Package className="w-5 h-5" />}>
+                  <FormSection title="Cargo Details" icon={<Package className="w-5 h-5" />}>
                      <div className="grid grid-cols-2 gap-4">
                         <InputField label="Cargo Name" value={shipData.cargoName} onChange={(v) => handleShipDataChange('cargoName', v)} placeholder="Smartwatch Comp." />
                         <InputField label="HS Code" value={shipData.hsCode} onChange={(v) => handleShipDataChange('hsCode', v)} placeholder="8517.7900" />
