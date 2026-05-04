@@ -1,6 +1,6 @@
 # """
-# 人工转接模块 (Module 6)
-# 处理AI到人工客服的转接逻辑
+# Human Handoff Module (Module 6)
+# Handles AI to human customer service handoff logic
 # """
 # from services.llm_service import get_llm_service
 # from models import Handoff, Conversation, Message

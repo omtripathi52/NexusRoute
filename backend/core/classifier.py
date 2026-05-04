@@ -1,6 +1,6 @@
 # """
-# 客户分类模块 (Module 2)
-# 基于对话历史自动分类客户为：优质/普通/低价值
+# Customer Classification Module (Module 2)
+# Automatically classify customers based on conversation history: High/Normal/Low value
 # """
 # from services.llm_service import get_llm_service
 # from models import Customer, CustomerCategory

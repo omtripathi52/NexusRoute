@@ -1,7 +1,7 @@
 # """
-# 智能对话模块 (Module 3)
-# 基于增强RAG的智能客服机器人
-# 支持元数据过滤、混合检索、重排序
+# Intelligent Conversation Module (Module 3)
+# Smart customer service chatbot based on enhanced RAG
+# Supports metadata filtering, hybrid retrieval, reranking
 # """
 # from services.llm_service import get_llm_service
 # from services.knowledge_base import get_knowledge_base
