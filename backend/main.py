@@ -314,7 +314,7 @@ async def chat(
                 language=request.language
             )
         except Exception as e:
-            logger.warning(f"CrewAI模式失败，回退默认机器人: {e}")
+            logger.warning(f"CrewAI mode failed, falling back to default chatbot: {e}")
             response = None
 
     if response is None:

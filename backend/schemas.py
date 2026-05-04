@@ -1,12 +1,12 @@
-# ========== 数据模型（新增） ==========
+# ========== Data Models (New) ==========
 
 class HumanMessageRequest(BaseModel):
-    """人工发送消息请求"""
+    """Human message request"""
     conversation_id: int
     content: str
-    agent_name: str = "人工客服"
+    agent_name: str = "Human Agent"
 
 class UpdateHandoffRequest(BaseModel):
-    """更新转人工状态请求"""
+    """Update handoff status request"""
     status: str  # pending/processing/completed
     agent_name: Optional[str] = None

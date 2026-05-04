@@ -92,7 +92,7 @@ class CrewAIOrchestrator:
         parsed.setdefault("should_handoff", parsed.get("confidence", 0.0) < 0.7)
 
         return {
-            "answer": parsed.get("answer", "抱歉，我需要稍后再确认这个问题。"),
+            "answer": parsed.get("answer", "I apologize, I need to verify this later."),
             "confidence": float(parsed.get("confidence", 0.6)),
             "should_handoff": bool(parsed.get("should_handoff", False)),
             "product_tag": parsed.get("product_tag"),
@@ -101,31 +101,31 @@ class CrewAIOrchestrator:
     # ---------- internal helpers ----------
     def _build_context(self, docs: List) -> str:
         if not docs:
-            return "无检索结果"
+            return "No search results"
         parts = []
         for doc in docs:
             meta = doc.metadata or {}
-            product = meta.get("product_tag", "未知产品")
-            doc_type = meta.get("doc_type", "文档")
+            product = meta.get("product_tag", "Unknown Product")
+            doc_type = meta.get("doc_type", "Document")
             parts.append(f"[{product} - {doc_type}] {doc.page_content[:400]}")
         return "\n\n---\n\n".join(parts)
 
     def _build_task_description(self, message: str, context: str, language: str) -> str:
         return f"""
-你是大疆（DJI）工业无人机销售工程师。请基于下方检索上下文回答客户提问。
+You are a DJI industrial drone sales engineer. Answer the customer's question based on the retrieved context below.
 
-检索上下文:
+Retrieved Context:
 {context}
 
-客户消息:
+Customer Message:
 {message}
 
-要求:
-- 直接回答，不要冗长开场白
-- 技术参数需标注来源，如“根据M30用户手册”
-- 语言: {'中文' if language == 'zh-cn' else 'English'}
-- 长度: 50-120字
-- 输出JSON，示例:
+Instructions:
+- Answer directly without lengthy preambles
+- Cite sources for technical specs (e.g., "According to M30 User Manual")
+- Language: {'Chinese' if language == 'zh-cn' else 'English'}
+- Length: 50-120 characters
+- Output as JSON:
 {{
   "answer": "...",
   "confidence": 0.85,
