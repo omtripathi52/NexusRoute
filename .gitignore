@@ -1,6 +1,8 @@
 # ============================================
 # Python Backend (FastAPI)
 # ============================================
+# Ignore local build outputs and environment files.
+# Keep the repository focused on source, not generated artifacts.
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
