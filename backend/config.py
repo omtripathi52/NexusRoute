@@ -59,6 +59,9 @@ class Settings(BaseSettings):
     clerk_issuer_url: Optional[str] = None
     admin_whitelist: str = "flashforward637@gmail.com"
 
+    # Public backend URL used to generate absolute API/WebSocket links in production
+    backend_public_url: Optional[str] = None
+
     # System Configuration
     log_level: str = "INFO"
     debug: bool = True

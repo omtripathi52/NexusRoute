@@ -1,9 +1,9 @@
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Request
 from demo.autoplay_controller import CrisisAutoPlayController
+from config import get_settings
 import uuid
 import logging
 import asyncio
-import os
 
 logger = logging.getLogger(__name__)
 
@@ -15,37 +15,22 @@ active_sessions = {}
 
 def get_websocket_url(request: Request, demo_id: str) -> str:
     """
-    Generate the correct WebSocket URL based on the request's origin.
-    In production, uses the client's origin. In development, uses localhost.
+    Generate the correct WebSocket URL for the backend service itself.
+
+    The demo WebSocket must point at the backend host, not the frontend origin.
+    In production this should resolve to the Render backend domain.
     """
-    # Try to get the origin from the request
-    origin = request.headers.get("origin", "").strip()
-    
-    # If we have an origin (from browser), use it to build WebSocket URL
-    if origin:
-        # Convert http/https to ws/wss
-        if origin.startswith("https://"):
-            protocol = "wss"
-            host = origin.replace("https://", "")
-        else:
-            protocol = "ws"
-            host = origin.replace("http://", "")
-        return f"{protocol}://{host}/api/v2/demo/ws?demo_id={demo_id}"
-    
-    # Fallback: use host header
-    host = request.headers.get("host", "localhost:8000")
-    if "vercel.app" in host or host.startswith("https"):
-        protocol = "wss"
+    settings = get_settings()
+
+    base_url = settings.backend_public_url or str(request.base_url).rstrip("/")
+    if base_url.startswith("https://"):
+        ws_base = base_url.replace("https://", "wss://", 1)
+    elif base_url.startswith("http://"):
+        ws_base = base_url.replace("http://", "ws://", 1)
     else:
-        protocol = "ws"
-    
-    # Remove https:// if it's in the host header
-    if host.startswith("https://"):
-        host = host.replace("https://", "")
-    elif host.startswith("http://"):
-        host = host.replace("http://", "")
-    
-    return f"{protocol}://{host}/api/v2/demo/ws?demo_id={demo_id}"
+        ws_base = f"wss://{base_url}" if not base_url.startswith("ws") else base_url
+
+    return f"{ws_base}/api/v2/demo/ws?demo_id={demo_id}"
 
 @router.post("/start")
 async def start_demo(request: Request, scenario: str = "crisis_455pm"):
