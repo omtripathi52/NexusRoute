@@ -1,8 +1,9 @@
-from fastapi import APIRouter, WebSocket, WebSocketDisconnect
+from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Request
 from demo.autoplay_controller import CrisisAutoPlayController
 import uuid
 import logging
 import asyncio
+import os
 
 logger = logging.getLogger(__name__)
 
@@ -12,8 +13,42 @@ router = APIRouter(prefix="/api/v2/demo", tags=["Demo"])
 # demo_id -> controller_instance
 active_sessions = {}
 
+def get_websocket_url(request: Request, demo_id: str) -> str:
+    """
+    Generate the correct WebSocket URL based on the request's origin.
+    In production, uses the client's origin. In development, uses localhost.
+    """
+    # Try to get the origin from the request
+    origin = request.headers.get("origin", "").strip()
+    
+    # If we have an origin (from browser), use it to build WebSocket URL
+    if origin:
+        # Convert http/https to ws/wss
+        if origin.startswith("https://"):
+            protocol = "wss"
+            host = origin.replace("https://", "")
+        else:
+            protocol = "ws"
+            host = origin.replace("http://", "")
+        return f"{protocol}://{host}/api/v2/demo/ws?demo_id={demo_id}"
+    
+    # Fallback: use host header
+    host = request.headers.get("host", "localhost:8000")
+    if "vercel.app" in host or host.startswith("https"):
+        protocol = "wss"
+    else:
+        protocol = "ws"
+    
+    # Remove https:// if it's in the host header
+    if host.startswith("https://"):
+        host = host.replace("https://", "")
+    elif host.startswith("http://"):
+        host = host.replace("http://", "")
+    
+    return f"{protocol}://{host}/api/v2/demo/ws?demo_id={demo_id}"
+
 @router.post("/start")
-async def start_demo(scenario: str = "crisis_455pm"):
+async def start_demo(request: Request, scenario: str = "crisis_455pm"):
     """
     启动Demo
     返回 demo_id 和 WebSocket URL
@@ -23,11 +58,14 @@ async def start_demo(scenario: str = "crisis_455pm"):
     
     controller = CrisisAutoPlayController()
     active_sessions[demo_id] = controller
+    
+    # Generate the correct WebSocket URL based on the request
+    websocket_url = get_websocket_url(request, demo_id)
 
     return {
         "demo_id": demo_id,
         "status": "started",
-        "websocket_url": f"ws://localhost:8000/api/v2/demo/ws?demo_id={demo_id}",
+        "websocket_url": websocket_url,
         "duration_seconds": 178
     }
 
