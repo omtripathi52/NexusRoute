@@ -479,6 +479,7 @@ export function GlobalMap3D({
         fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, sans-serif',
         fontWeight: '400',
         characterSet: 'auto',
+        fontSettings: { sdf: true },
         
         extensions: [new CollisionFilterExtension()],
         collisionEnabled: true,
@@ -515,6 +516,7 @@ export function GlobalMap3D({
         
         fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, sans-serif',
         fontWeight: '500',
+        fontSettings: { sdf: true },
         
         extensions: [new CollisionFilterExtension()],
         collisionEnabled: true,
@@ -551,6 +553,7 @@ export function GlobalMap3D({
         
         fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, sans-serif',
         fontWeight: '400',
+        fontSettings: { sdf: true },
         
         extensions: [new CollisionFilterExtension()],
         collisionEnabled: true,

@@ -24,3 +24,20 @@ export const buildWsUrl = (path) => {
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
   return `${wsBase}${normalizedPath}`;
 };
+
+// Fix localhost WebSocket URLs to use current domain in production
+export const fixWebSocketUrl = (url) => {
+  if (!url) return url;
+  
+  // If in production and URL is localhost, replace with current domain
+  if (import.meta.env.PROD && (url.includes('localhost') || url.includes('127.0.0.1'))) {
+    const currentProtocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+    const currentHost = window.location.host;
+    // Extract just the path part (e.g., '/api/v2/demo/ws')
+    const pathMatch = url.match(/(\/[^:]*$)/);
+    const path = pathMatch ? pathMatch[0] : '/api/v2/demo/ws';
+    return `${currentProtocol}://${currentHost}${path}`;
+  }
+  
+  return url;
+};

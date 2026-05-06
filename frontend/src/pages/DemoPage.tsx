@@ -53,7 +53,7 @@ import {
 import {
   getDemoAnalysis,
 } from '../services/visualRiskApi';
-import { buildApiUrl } from '../config/runtime';
+import { buildApiUrl, fixWebSocketUrl } from '../config/runtime';
 
 // CoT Type Definitions
 interface RAGSource {
@@ -482,7 +482,10 @@ export const DemoPage: React.FC = () => {
 
       if (response.ok) {
         const data = await response.json();
-        if (data?.websocket_url) connect(data.websocket_url);
+        if (data?.websocket_url) {
+          const fixedWsUrl = fixWebSocketUrl(data.websocket_url);
+          connect(fixedWsUrl);
+        }
       } else {
         console.warn('Backend not ready, running in UI-only mode');
       }

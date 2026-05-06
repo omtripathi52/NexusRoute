@@ -76,7 +76,8 @@ export const Globe3D: React.FC<Globe3DProps> = ({ ports, routes }) => {
         getColor: [0, 58, 140], // Dark Blue text
         getPixelOffset: [0, -20],
         fontWeight: 'bold',
-        fontFamily: 'Arial, sans-serif'
+        fontFamily: 'Arial, sans-serif',
+        fontSettings: { sdf: true }
     }),
 
     // 3. Routes (Arcs on top)

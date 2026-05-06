@@ -355,7 +355,8 @@ export function GlobalMap2D({
         fontFamily: 'system-ui, -apple-system, sans-serif',
         fontWeight: 'normal',
         billboard: true,
-        background: false
+        background: false,
+        fontSettings: { sdf: true }
     }),
 
     // 2. Countries - Filled polygons (Google Maps style)
@@ -532,6 +533,7 @@ export function GlobalMap2D({
         fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, sans-serif',
         fontWeight: '400',
         characterSet: 'auto',
+        fontSettings: { sdf: true },
 
         // Collision Handling for clean label placement
         extensions: [new CollisionFilterExtension()],
@@ -562,6 +564,7 @@ export function GlobalMap2D({
       outlineColor: [28, 33, 40, 220],
       fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, sans-serif',
       fontWeight: '500',
+      fontSettings: { sdf: true },
       getTextAnchor: 'start',
       getAlignmentBaseline: 'center',
       getPixelOffset: [12, 0], // Offset to the right of marker
@@ -590,6 +593,7 @@ export function GlobalMap2D({
       outlineColor: [28, 33, 40, 220],
       fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, sans-serif',
       fontWeight: '400',
+      fontSettings: { sdf: true },
       getTextAnchor: 'start',
       getAlignmentBaseline: 'center',
       getPixelOffset: [8, 0], // Offset to the right of marker

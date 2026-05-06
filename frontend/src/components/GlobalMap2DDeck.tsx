@@ -338,6 +338,7 @@ export function GlobalMap2DDeck({
           getPixelOffset: [0, -25],
           fontFamily: 'system-ui, sans-serif',
           fontWeight: 'bold',
+          fontSettings: { sdf: true },
           wrapLongitude: true,
         })
       );
@@ -417,6 +418,7 @@ export function GlobalMap2DDeck({
           getColor: [255, 255, 255, 180],
           getPixelOffset: [0, -22],
           fontFamily: 'system-ui, sans-serif',
+          fontSettings: { sdf: true },
           wrapLongitude: true,
         })
       );
@@ -496,6 +498,7 @@ export function GlobalMap2DDeck({
           getPixelOffset: [0, -20],
           fontFamily: 'system-ui, sans-serif',
           fontWeight: '500',
+          fontSettings: { sdf: true },
           wrapLongitude: true,
         })
       );
