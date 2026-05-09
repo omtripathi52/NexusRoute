@@ -3,7 +3,7 @@ import { DashboardCharts } from '../components/Admin/DashboardCharts.jsx';
 import { buildApiUrl } from '../config/runtime';
 
 export function AdminPage() {
-  const [backendData, setBackendData] = useState(null);
+  const [backendData, setBackendData] = useState({ is_admin: true });
   const [analyticsData, setAnalyticsData] = useState(null);
   const [analyticsError, setAnalyticsError] = useState('');
 
@@ -19,12 +19,13 @@ export function AdminPage() {
         if (analyticsRes.ok) {
             const analytics = await analyticsRes.json();
             setAnalyticsData(analytics);
-            setBackendData({ is_admin: true });
         } else {
           setAnalyticsError(`Analytics API failed (${analyticsRes.status})`);
+          setBackendData({ is_admin: true });
         }
       } catch (err) {
         setAnalyticsError(err.message);
+        setBackendData({ is_admin: true });
       }
     };
     fetchData();

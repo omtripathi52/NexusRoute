@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useUser, SignOutButton } from '@clerk/clerk-react';
 import { useNavigate } from 'react-router-dom';
 import {
   Zap,
@@ -33,7 +32,6 @@ import { MAJOR_PORTS } from '../data/ports';
 import { motion, AnimatePresence } from 'motion/react';
 
 export function UsersHome() {
-  const { user, isLoaded } = useUser();
   const navigate = useNavigate();
   
   // --- States ---
@@ -65,15 +63,15 @@ export function UsersHome() {
   const [portSearchQuery, setPortSearchQuery] = useState('');
   const [showPortDropdown, setShowPortDropdown] = useState(false);
 
-  // Provision customer + vessel on mount once Clerk user is loaded
+  // Initialize with default customer/vessel IDs
   useEffect(() => {
-    if (!user) return;
-    const provision = async () => {
+    const initialize = async () => {
       try {
+        // Try to provision with public access
         const res = await documentAPI.provisionUser({
-          clerk_id: user.id,
-          email: user.primaryEmailAddress?.emailAddress || '',
-          name: user.fullName || undefined,
+          clerk_id: 'public-user',
+          email: 'public@nexusroute.app',
+          name: 'User',
         });
         setCustomerId(res.customer_id);
         if (res.vessel_id) setVesselId(res.vessel_id);
@@ -84,8 +82,8 @@ export function UsersHome() {
         setVesselId(1);
       }
     };
-    provision();
-  }, [user]);
+    initialize();
+  }, []);
 
   // Pre-compute available ports from MAJOR_PORTS (no useEffect needed)
   const countryCodeMap = {
@@ -395,14 +393,14 @@ export function UsersHome() {
           
           <div className="flex items-center gap-4">
              <div className="text-right hidden sm:block">
-                <p className="text-sm font-semibold text-white/90 tracking-tight">{user?.fullName || "Commander"}</p>
+                <p className="text-sm font-semibold text-white/90 tracking-tight">Navigator</p>
                 <div className="flex items-center gap-1.5 justify-end">
                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                    <p className="text-[10px] uppercase font-bold text-white/30 tracking-widest">Global Ops Active</p>
                 </div>
              </div>
              <img 
-               src={user?.imageUrl} 
+               src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHJ4PSI4IiBmaWxsPSIjMDA4MEYwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk48L3RleHQ+PC9zdmc+" 
                alt="avatar" 
                className="w-11 h-11 rounded-2xl border border-blue-500/20 shadow-[0_0_20px_rgba(59,130,246,0.15)] ring-2 ring-white/5" 
              />
