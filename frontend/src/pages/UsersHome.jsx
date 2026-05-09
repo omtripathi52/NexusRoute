@@ -521,11 +521,9 @@ export function UsersHome() {
                        <div className="space-y-3">
                           <StatusButton label="Security Logs" />
                           <StatusButton label="Manage API Keys" />
-                                       <SignOutButton redirectUrl="/pay">
-                             <button className="w-full py-3 text-red-400/80 hover:text-red-400 transition-colors font-semibold text-sm">
-                               Disconnect Session
-                             </button>
-                          </SignOutButton>
+                          <button onClick={() => navigate('/pay')} className="w-full py-3 text-red-400/80 hover:text-red-400 transition-colors font-semibold text-sm">
+                            Disconnect Session
+                          </button>
                        </div>
                     </section>
 
