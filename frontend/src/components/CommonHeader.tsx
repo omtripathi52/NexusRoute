@@ -1,5 +1,4 @@
 import React from 'react';
-import { SignedIn, SignedOut, UserButton, useClerk, useUser } from '@clerk/clerk-react';
 import { Shield, Menu as MenuIcon, Home, Settings } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Dropdown, MenuProps } from 'antd';
@@ -8,18 +7,9 @@ import { useHeader } from '../context/HeaderContext';
 export const CommonHeader: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { openSignIn } = useClerk();
-    const { user } = useUser();
     const { title, subtitle, extraContent, showShieldIcon } = useHeader();
 
-    const userEmail = user?.primaryEmailAddress?.emailAddress?.toLowerCase();
-    // @ts-ignore
-    const whitelistStr = import.meta.env.VITE_ADMIN_WHITELIST || '';
-    const adminWhitelist = whitelistStr.split(',').map((e: string) => e.trim().toLowerCase());
-
-    const isAdmin =
-        user?.publicMetadata?.role === 'admin' ||
-        (userEmail && adminWhitelist.includes(userEmail));
+    const isAdmin = true; // Always admin when Clerk is removed
 
     const isDemoPage = location.pathname === '/demo';
 
@@ -152,45 +142,20 @@ export const CommonHeader: React.FC = () => {
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                 {isDemoPage && extraContent}
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', borderLeft: isDemoPage ? '1px solid #1a2332' : 'none', paddingLeft: isDemoPage ? '16px' : '0' }}>
-                    <SignedIn>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                            {isAdmin && (
-                                <Dropdown menu={{ items: adminMenuItems }} placement="bottomRight" arrow>
-                                    <div style={{
-                                        cursor: 'pointer',
-                                        color: 'white',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        padding: '4px'
-                                    }}>
-                                        <MenuIcon style={{ width: '20px', height: '20px' }} />
-                                    </div>
-                                </Dropdown>
-                            )}
-                            <UserButton afterSignOutUrl="/pay" />
-                        </div>
-                    </SignedIn>
-                    <SignedOut>
-                        <button
-                            onClick={() => openSignIn()}
-                            style={{
-                                padding: '6px 16px',
-                                background: '#0078d4',
-                                color: 'white',
-                                border: 'none',
-                                borderRadius: '4px',
-                                fontSize: '0.875rem',
-                                fontWeight: 500,
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    {isAdmin && (
+                        <Dropdown menu={{ items: adminMenuItems }} placement="bottomRight" arrow>
+                            <div style={{
                                 cursor: 'pointer',
-                                transition: 'background 0.2s'
-                            }}
-                            onMouseOver={(e) => (e.currentTarget.style.background = '#005a9e')}
-                            onMouseOut={(e) => (e.currentTarget.style.background = '#0078d4')}
-                        >
-                            Login
-                        </button>
-                    </SignedOut>
+                                color: 'white',
+                                display: 'flex',
+                                alignItems: 'center',
+                                padding: '4px'
+                            }}>
+                                <MenuIcon style={{ width: '20px', height: '20px' }} />
+                            </div>
+                        </Dropdown>
+                    )}
                 </div>
             </div>
         </header>

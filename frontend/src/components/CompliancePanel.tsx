@@ -13,7 +13,6 @@
  */
 
 import React, { useState, useEffect, useMemo, useCallback, useRef } from "react";
-import { useUser } from "@clerk/clerk-react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   Shield,
@@ -92,8 +91,6 @@ export interface CompliancePanelProps {
 }
 
 export function CompliancePanel({ originPort, destinationPort, activeMapRoute }: CompliancePanelProps) {
-  const { user } = useUser();
-
   // identity
   const [customerId, setCustomerId] = useState<number | null>(null);
   const [vesselId, setVesselId] = useState<number | null>(null);

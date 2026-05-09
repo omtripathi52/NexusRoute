@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { useAuth } from '@clerk/clerk-react';
 import { useNavigate, Link } from 'react-router-dom';
 import {
   Shield,

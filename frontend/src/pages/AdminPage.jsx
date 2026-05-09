@@ -1,100 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { useUser, useAuth, SignOutButton } from '@clerk/clerk-react';
 import { DashboardCharts } from '../components/Admin/DashboardCharts.jsx';
 import { buildApiUrl } from '../config/runtime';
 
 export function AdminPage() {
-  const { user, isLoaded } = useUser();
-  const { getToken } = useAuth();
   const [backendData, setBackendData] = useState(null);
   const [analyticsData, setAnalyticsData] = useState(null);
   const [analyticsError, setAnalyticsError] = useState('');
-  const userEmail = (user?.primaryEmailAddress?.emailAddress || '').trim().toLowerCase();
-  const whitelistRaw = (import.meta.env.VITE_ADMIN_WHITELIST || 'flashforward637@gmail.com').trim();
-  const adminWhitelist = whitelistRaw
-    .split(',')
-    .map((entry) => entry.trim().toLowerCase())
-    .filter(Boolean);
-  const isWhitelistedAdmin = Boolean(userEmail && adminWhitelist.includes(userEmail));
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = await getToken();
         const headers = {
-            Authorization: `Bearer ${token}`,
-            'X-User-Email': user?.primaryEmailAddress?.emailAddress || ''
+            'Content-Type': 'application/json'
         };
 
-        // 1. Check Auth & Whitelist
-          const res = await fetch(buildApiUrl('/api/protected'), { headers });
-        if (res.ok) {
-           const data = await res.json();
-           setBackendData(data);
-           
-           // 2. If Admin, fetch Analytics
-           if (data.is_admin || isWhitelistedAdmin) {
-              const analyticsRes = await fetch(buildApiUrl('/api/analytics/dashboard'), { headers });
-              if (analyticsRes.ok) {
-                  const analytics = await analyticsRes.json();
-                  setAnalyticsData(analytics);
-              } else {
-                setAnalyticsError(`Analytics API failed (${analyticsRes.status})`);
-              }
-           }
-           if (!data.is_admin && isWhitelistedAdmin) {
-             setBackendData({ ...data, is_admin: true, email: data.email || userEmail });
-           } else {
-             setBackendData(data);
-           }
+        // Fetch Analytics
+        const analyticsRes = await fetch(buildApiUrl('/api/analytics/dashboard'), { headers });
+        if (analyticsRes.ok) {
+            const analytics = await analyticsRes.json();
+            setAnalyticsData(analytics);
+            setBackendData({ is_admin: true });
         } else {
-           setBackendData({ error: `Error: ${res.status}` });
+          setAnalyticsError(`Analytics API failed (${analyticsRes.status})`);
         }
       } catch (err) {
-        setBackendData({ error: err.message });
-          setAnalyticsError(err.message);
+        setAnalyticsError(err.message);
       }
     };
-    if (isLoaded && user) {
-      fetchData();
-    }
-  }, [isLoaded, user, getToken, isWhitelistedAdmin, userEmail]);
-
-  if (!isLoaded) return <div>Loading...</div>;
-
-  // Access Control Check
-  if (backendData && backendData.is_admin === false && !isWhitelistedAdmin) {
-      // ... (Access Denied View - Keep existing)
-      return (
-        <div style={{ 
-          color: 'white', 
-          height: '100vh', 
-          display: 'flex', 
-          justifyContent: 'center', 
-          alignItems: 'center',
-          backgroundColor: '#0f172a',
-          flexDirection: 'column'
-        }}>
-            <h1>Access Denied</h1>
-            <p>You are not an administrator.</p>
-            <p className="text-gray-400 mt-2">Current Email: {user?.primaryEmailAddress?.emailAddress}</p>
-            <div style={{ marginTop: '20px' }}>
-             <SignOutButton redirectUrl="/pay">
-               <button style={{
-                 padding: '10px 20px',
-                 backgroundColor: '#334155',
-                 color: 'white',
-                 border: 'none',
-                 borderRadius: '4px',
-                 cursor: 'pointer'
-               }}>
-                 Sign Out
-               </button>
-             </SignOutButton>
-            </div>
-        </div>
-      )
-  }
+    fetchData();
+  }, []);
 
   return (
     <div className="min-h-screen bg-slate-900 text-white p-8">
@@ -108,14 +42,12 @@ export function AdminPage() {
             </div>
             <div className="flex items-center gap-4">
                 <div className="text-right hidden sm:block">
-                    <p className="font-semibold">{user?.fullName || user?.firstName}</p>
+                    <p className="font-semibold">Admin</p>
                     <p className="text-xs text-slate-500">Administrator</p>
                 </div>
-                <SignOutButton redirectUrl="/pay">
-                    <button className="px-4 py-2 bg-red-500 hover:bg-red-600 rounded text-sm font-medium transition-colors">
-                        Sign Out
-                    </button>
-                </SignOutButton>
+                <button onClick={() => window.location.href = '/pay'} className="px-4 py-2 bg-red-500 hover:bg-red-600 rounded text-sm font-medium transition-colors">
+                    Back to Home
+                </button>
             </div>
         </header>
       

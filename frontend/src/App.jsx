@@ -2,14 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
 import zhCN from 'antd/locale/zh_CN';
-import {
-  SignedIn,
-  SignedOut,
-  RedirectToSignIn,
-  SignIn,
-  SignUp,
-  UserButton
-} from '@clerk/clerk-react';
+
 import './App.css';
 import { DemoPage } from './pages/DemoPage';
 import { PaymentPage } from './pages/PaymentPage';
@@ -22,12 +15,7 @@ import { SignInPage } from './pages/SignInPage';
 import { AdminPage } from './pages/AdminPage';
 import { UsersHome } from './pages/UsersHome';
 
-// Import publishable key
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
-if (!PUBLISHABLE_KEY) {
-  throw new Error("Missing Publishable Key")
-}
 
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -60,45 +48,9 @@ function App() {
                 element={<div style={{ display: 'flex', justifyContent: 'center', padding: '50px' }}><SignUp routing="path" path="/sign-up" /></div>}
               />
 
-              <Route
-                path="/port"
-                element={
-                  <>
-                    <SignedIn>
-                      <PortSelectionPage />
-                    </SignedIn>
-                    <SignedOut>
-                      <Navigate to="/sign-in?redirect=/port" replace />
-                    </SignedOut>
-                  </>
-                }
-              />
-              <Route
-                path="/demo"
-                element={
-                  <>
-                    <SignedIn>
-                      <DemoPage />
-                    </SignedIn>
-                    <SignedOut>
-                      <Navigate to="/sign-in?redirect=/demo" replace />
-                    </SignedOut>
-                  </>
-                }
-              />
-              <Route
-                path="/admin"
-                element={
-                  <>
-                    <SignedIn>
-                      <AdminPage />
-                    </SignedIn>
-                    <SignedOut>
-                      <Navigate to="/sign-in?redirect=/admin" replace />
-                    </SignedOut>
-                  </>
-                }
-              />
+              <Route path="/port" element={<PortSelectionPage />} />
+              <Route path="/demo" element={<DemoPage />} />
+              <Route path="/admin" element={<AdminPage />} />
             </Routes>
           </BrowserRouter>
       </HeaderProvider>

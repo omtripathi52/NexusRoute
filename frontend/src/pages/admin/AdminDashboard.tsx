@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Tag, Space, Typography, Card, Statistic, Row, Col, Spin, message, Tooltip as AntTooltip } from 'antd';
-import { useAuth, useUser } from '@clerk/clerk-react';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   PieChart, Pie, Cell, LineChart, Line, AreaChart, Area
@@ -59,8 +58,6 @@ interface Stats {
 }
 
 export const AdminDashboard: React.FC = () => {
-  const { getToken } = useAuth();
-  const { user } = useUser();
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
@@ -68,18 +65,16 @@ export const AdminDashboard: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = await getToken();
-        
         // Fetch Customers
         const custRes = await fetch(buildApiUrl('/api/customers'), {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { 'Content-Type': 'application/json' },
         });
         const custData = await custRes.json();
         setCustomers(custData.customers || []);
 
         // Fetch Stats
         const statsRes = await fetch(buildApiUrl('/api/admin/stats'), {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { 'Content-Type': 'application/json' },
         });
         const statsData = await statsRes.json();
         
