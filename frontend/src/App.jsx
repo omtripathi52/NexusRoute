@@ -11,7 +11,6 @@ import { AdminDashboard } from './pages/admin/AdminDashboard';
 import { CommonHeader } from './components/CommonHeader';
 import { HeaderProvider } from './context/HeaderContext';
 
-import { SignInPage } from './pages/SignInPage';
 import { AdminPage } from './pages/AdminPage';
 import { UsersHome } from './pages/UsersHome';
 
@@ -41,12 +40,7 @@ function App() {
               
               <Route path="/usershome" element={<UsersHome />} />
               
-              {/* Authentication Routes */}
-              <Route path="/sign-in/*" element={<SignInPage />} />
-              <Route
-                path="/sign-up/*"
-                element={<div style={{ display: 'flex', justifyContent: 'center', padding: '50px' }}><SignUp routing="path" path="/sign-up" /></div>}
-              />
+
 
               <Route path="/port" element={<PortSelectionPage />} />
               <Route path="/demo" element={<DemoPage />} />
