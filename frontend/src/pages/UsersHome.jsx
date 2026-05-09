@@ -188,7 +188,7 @@ export function UsersHome() {
     volume: ''
   });
 
-  if (!isLoaded) return <div className="min-h-screen bg-[#0a0e1a] flex items-center justify-center text-blue-400 font-mono">INITIALIZING SYSTEM...</div>;
+  if (!customerId) return <div className="min-h-screen bg-[#0a0e1a] flex items-center justify-center text-blue-400 font-mono">INITIALIZING SYSTEM...</div>;
 
   const usedPercentage = (metrics.usedTokens / metrics.totalTokens) * 100;
 
