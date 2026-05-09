@@ -1,10 +1,9 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter
 from typing import Dict, Any, List
 import json
 import os
 from collections import Counter
 from datetime import datetime
-from api.deps import get_current_user
 
 router = APIRouter(prefix="/api/analytics", tags=["analytics"])
 
@@ -17,13 +16,11 @@ def load_virtual_data():
         return json.load(f)
 
 @router.get("/dashboard")
-def get_dashboard_data(user: dict = Depends(get_current_user)):
+def get_dashboard_data():
     """
     Get analytics dashboard data from virtual users.
-    Requires authentication.
+    Public endpoint - no authentication required.
     """
-    # Simply verify user is authenticated via dependency
-    
     users = load_virtual_data()
     
     if not users:
