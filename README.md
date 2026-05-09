@@ -30,7 +30,6 @@ Core system capabilities include:
 ## AI and Tech Stack
 - Frontend: React, TypeScript, Vite, Deck.gl
 - Backend: FastAPI, Python
-- Auth: Clerk
 - AI: Gemini-based reasoning and multimodal analysis pipeline
 - Data: SQLite + vector retrieval components
 
